@@ -39,3 +39,9 @@ Usage
 
 #Example Run (Metastasis; Cancerous spread)
 ![Example Cancer Spread](http://i.imgur.com/T7qx12x.jpg)
+
+Contact The Developer
+==============
+Email: SpockThompsonJr@gmail.com
+
+Website: http://GregThompsonJr.com/
