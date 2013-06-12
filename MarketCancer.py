@@ -1,19 +1,18 @@
 '''
-
      MarketCancer.py
-	 
-	Post messages on a Yahoo! Finance message board
-	automatically.
-	
-	Example Usage:
-	
-		$ python marketcancer.py username@yahoo.com password1234 GOOG "topics.txt" 1 5
-			-post under username@yahoo.com in the GOOG message board using 
-			messages from topics.txt behind a proxy 5 times
-		
-		$ python marketcancer.py "record.txt" GOOG "topics.txt" 0 8
-			-post under usernames found in record.txt in the GOOG message board using 
-			messages from topics.txt without proxy 8 times
+         
+        Post messages on a Yahoo! Finance message board
+        automatically.
+        
+        Example Usage:
+        
+                $ python marketcancer.py username@yahoo.com password1234 GOOG "topics.txt" 1 5
+                        -post under username@yahoo.com in the GOOG message board using 
+                        messages from topics.txt behind a proxy 5 times
+                
+                $ python marketcancer.py "record.txt" GOOG "topics.txt" 0 8
+                        -post under usernames found in record.txt in the GOOG message board using 
+                        messages from topics.txt without proxy 8 times
 
     Greg Thompson Jr.
         (c) 2013
@@ -41,21 +40,21 @@ class Cell:
     wait = WebDriverWait(dr,10) #default wait period as the driver loads a page
 
     def __init__(self, username, password, symbol, topics, proxy_on):
-	'''
-		CLASS Cell(...)
-		
-		Description: 
-			Create an object usable for logging in, posting, and signing out
-			of Yahoo!.
-		
-		Constructor Parameters:
-			- username 	- This is the account username. 
-			- password	- This is the account password.
-			- symbol 	- This is the market symbol to the stock. ex: GOOG, MJNA 
-			- topics 	- This is a file name string. The file holds subject lines and corresponding messages.
-			- proxy_on	- Use a proxy? 0 for no; any number > 0 for yes
-		
-	'''
+        '''
+                CLASS Cell(...)
+                
+                Description: 
+                        Create an object usable for logging in, posting, and signing out
+                        of Yahoo!.
+                
+                Constructor Parameters:
+                        - username      - This is the account username. 
+                        - password      - This is the account password.
+                        - symbol        - This is the market symbol to the stock. ex: GOOG, MJNA 
+                        - topics        - This is a file name string. The file holds subject lines and corresponding messages.
+                        - proxy_on      - Use a proxy? 0 for no; any number > 0 for yes
+                
+        '''
         self.username = username
         self.password = password
         self.proxy_on = proxy_on
@@ -70,17 +69,17 @@ class Cell:
           })
 
     def create_driver(self):
-	'''
-		Name: create_driver()
-		
-		Description: 
-			Create the web driver used 
-		
-		Parameters:
-			None.
-		
-			Returns web driver.
-	'''
+        '''
+                Name: create_driver()
+                
+                Description: 
+                        Create the web driver used 
+                
+                Parameters:
+                        None.
+                
+                        Returns web driver.
+        '''
         if self.proxy_on == 1:
             self.dr = webdriver.Firefox(proxy=self.p)
         else:
@@ -89,17 +88,17 @@ class Cell:
 
     
     def login(self):
-	'''
-		Name: login()
-		
-		Description: 
-			Login using the login credentials.
-		
-		Parameters:
-			None.
-		
-			No return value.
-	'''
+        '''
+                Name: login()
+                
+                Description: 
+                        Login using the login credentials.
+                
+                Parameters:
+                        None.
+                
+                        No return value.
+        '''
         print "Logging in as '" + self.username + "' with password '" + self.password + "'..."
         #get login page
         self.dr.get(self.login_page)
@@ -125,32 +124,32 @@ class Cell:
     
     #open login page
     def open_login(self):
-	'''
-		Name: open_login()
-		
-		Description: 
-			Load the Yahoo! login page.
-		
-		Parameters:
-			None.
-		
-			No return value.
-	'''
+        '''
+                Name: open_login()
+                
+                Description: 
+                        Load the Yahoo! login page.
+                
+                Parameters:
+                        None.
+                
+                        No return value.
+        '''
         self.dr.get(self.login_page)
 
     #sign out
     def signout(self):
-	'''
-		Name: signout()
-		
-		Description: 
-			Log/sign out of the currently-logged-in Yahoo! account.
-		
-		parameters:
-			None.
-		
-			No return value.
-	'''
+        '''
+                Name: signout()
+                
+                Description: 
+                        Log/sign out of the currently-logged-in Yahoo! account.
+                
+                parameters:
+                        None.
+                
+                        No return value.
+        '''
         if self.dr.title == "Sign in to Yahoo!":
             self.dr.find_element_by_link_text("Sign Out").click()
         else:
@@ -163,32 +162,32 @@ class Cell:
 
     #exit web driver
     def close_driver(self):
-	'''
-		Name: close_driver()
-		
-		Description: 
-			Closes the driver. 
-		
-		parameters:
-			None.
-		
-			No return value.
-	'''
+    '''
+            Name: close_driver()
+                
+            Description: 
+                    Closes the driver. 
+                
+            parameters:
+                    None.
+                
+                    No return value.
+    '''
         self.dr.close()
 
     def access_msg_board(self):
-	'''
-		Name: access_msg_board
-		
-		Description: 
-			Load the message board in the web driver.
-		
-		Parameters:
-			None.
-		
-			No return value.
-	'''
-		#use the specified symbol to create the message board link
+    '''
+            Name: access_msg_board
+                
+            Description: 
+                    Load the message board in the web driver.
+                
+            Parameters:
+                    None.
+                
+                    No return value.
+    '''
+                #use the specified symbol to create the message board link
         msg_board_page = "http://finance.yahoo.com/mb/" + self.symbol + "/"
 
         print "Accessing the " + self.symbol + " message board..."
@@ -203,18 +202,18 @@ class Cell:
 
 
     def metastasis(self):
-	'''
-		Name: metastasis()
-		
-		Description: 
-			Post on the message board.  After the post, load the message board
-			main page again.
-		
-		Parameters:
-			None.
-		
-			No return value.
-	'''
+        '''
+                Name: metastasis()
+                
+                Description: 
+                        Post on the message board.  After the post, load the message board
+                        main page again.
+                
+                Parameters:
+                        None.
+                
+                        No return value.
+        '''
 
         #access the message board page
         self.access_msg_board()
@@ -250,184 +249,184 @@ class Cell:
 
 
 def multi_login_post(record, symbol, topics, proxy_on, posts):
-	'''
-		Name: multi_login_post(...)
-	
-		Description: 
-			Logs into each account specified in a login credentials record.
-			The record is a CSV file wherein each line is in the format:
-						username,password
-			After logging in, a post is made using a subject/message pulled
-			from the topics file (which is also a CSV) wherein each line is in the 
-			format:
-						subject,message
-			After the post, the account is signed out, and the web driver is 
-			directed to the login page so that another account may be logged into
-			to repeat the process.
-		
-		Parameters:
-			- record 	- This is is a file name string. The file holds login credentials. 
-			- symbol 	- This is the market symbol to the stock. ex: GOOG, MJNA 
-			- topics 	- This is a file name string. The file holds subject lines and corresponding messages.
-			- proxy_on	- Use a proxy? 0 for no; any number > 0 for yes
-			- posts		- How many times should all of the accounts on record be used? This is an integer.
-		
-			No return value.
-	'''
+        '''
+                Name: multi_login_post(...)
+        
+                Description: 
+                        Logs into each account specified in a login credentials record.
+                        The record is a CSV file wherein each line is in the format:
+                                                username,password
+                        After logging in, a post is made using a subject/message pulled
+                        from the topics file (which is also a CSV) wherein each line is in the 
+                        format:
+                                                subject,message
+                        After the post, the account is signed out, and the web driver is 
+                        directed to the login page so that another account may be logged into
+                        to repeat the process.
+                
+                Parameters:
+                        - record        - This is is a file name string. The file holds login credentials. 
+                        - symbol        - This is the market symbol to the stock. ex: GOOG, MJNA 
+                        - topics        - This is a file name string. The file holds subject lines and corresponding messages.
+                        - proxy_on      - Use a proxy? 0 for no; any number > 0 for yes
+                        - posts         - How many times should all of the accounts on record be used? This is an integer.
+                
+                        No return value.
+        '''
 
-	print "[!] Multiple accounts being used."
-	cell_count = 0 #keeps track of the number of logins/posts; they're the same.
-	
-	#if the user wants to use a proxy, ask them to specify it in the form SERVER:PORT
-	if int(proxy_on) > 0:
-		proxy_on == raw_input('\n<SERVER:PORT>: ')
-		print "\n[!] Operating behind proxy.\n"
-	else:
-		proxy_on = 0
-		print "\n[!] Operating on direct connection.\n"
+        print "[!] Multiple accounts being used."
+        cell_count = 0 #keeps track of the number of logins/posts; they're the same.
+        
+        #if the user wants to use a proxy, ask them to specify it in the form SERVER:PORT
+        if int(proxy_on) > 0:
+                proxy_on == raw_input('\n<SERVER:PORT>: ')
+                print "\n[!] Operating behind proxy.\n"
+        else:
+                proxy_on = 0
+                print "\n[!] Operating on direct connection.\n"
 
-	for i in xrange(0, int(posts)):
-		for login in get_logins(record):
-			cancer = Cell(login[0],login[1], symbol, topics, proxy_on)
-			cancer.login() #login
-			cancer.metastasis() #post
-			cancer.signout() #log out
-			cancer.open_login() #open login screen
-			cell_count+=1 #add to cell count
-			print ""
-			print 4 * "---"
+        for i in xrange(0, int(posts)):
+                for login in get_logins(record):
+                        cancer = Cell(login[0],login[1], symbol, topics, proxy_on)
+                        cancer.login() #login
+                        cancer.metastasis() #post
+                        cancer.signout() #log out
+                        cancer.open_login() #open login screen
+                        cell_count+=1 #add to cell count
+                        print ""
+                        print 4 * "---"
 
-	print "\n\n\tCell Count: %d cells" % cell_count
-	cancer.close_driver()
+        print "\n\n\tCell Count: %d cells" % cell_count
+        cancer.close_driver()
 
 def single_login_post(username, password, symbol, topics, proxy_on, posts):
-	'''
-		Name: single_login_post(...)
-	
-		Description: 
-			Logs into one account. The credentials are specified in the function call.
-			After logging in, a post is made using a subject/message pulled
-			from the topics file (which is also a CSV) wherein each line is in the 
-			format:
-						subject,message
-			After the post, the account is signed out, and the web driver is 
-			directed to the login page so that another account may be logged into
-			to repeat the process.
-		
-		Parameters:
-			- username 	- This is the account username. 
-			- password	- This is the account password.
-			- symbol 	- This is the market symbol to the stock. ex: GOOG, MJNA 
-			- topics 	- This is a file name string. The file holds subject lines and corresponding messages.
-			- proxy_on	- Use a proxy? 0 for no; any number > 0 for yes
-			- posts		- How many times should all of the accounts on record be used? This is an integer.
-		
-			No return value.
-	'''
-	print "[!] Single account being used."
-	keep_posting = True
-	cell_count = 0
-	
-	#if the user wants to use a proxy, ask them to specify it in the form SERVER:PORT
-	if int(proxy_on) > 0:
-		proxy_on == raw_input('<SERVER:PORT>: ')
-		print "\n[!] Operating behind proxy.\n"
-	else:
-		proxy_on = 0
+        '''
+                Name: single_login_post(...)
+        
+                Description: 
+                        Logs into one account. The credentials are specified in the function call.
+                        After logging in, a post is made using a subject/message pulled
+                        from the topics file (which is also a CSV) wherein each line is in the 
+                        format:
+                                                subject,message
+                        After the post, the account is signed out, and the web driver is 
+                        directed to the login page so that another account may be logged into
+                        to repeat the process.
+                
+                Parameters:
+                        - username      - This is the account username. 
+                        - password      - This is the account password.
+                        - symbol        - This is the market symbol to the stock. ex: GOOG, MJNA 
+                        - topics        - This is a file name string. The file holds subject lines and corresponding messages.
+                        - proxy_on      - Use a proxy? 0 for no; any number > 0 for yes
+                        - posts         - How many times should all of the accounts on record be used? This is an integer.
+                
+                        No return value.
+        '''
+        print "[!] Single account being used."
+        keep_posting = True
+        cell_count = 0
+        
+        #if the user wants to use a proxy, ask them to specify it in the form SERVER:PORT
+        if int(proxy_on) > 0:
+                proxy_on == raw_input('<SERVER:PORT>: ')
+                print "\n[!] Operating behind proxy.\n"
+        else:
+                proxy_on = 0
     
-	cancer = Cell(username,password, symbol, topics, proxy_on)
-	cancer.login()
+        cancer = Cell(username,password, symbol, topics, proxy_on)
+        cancer.login()
 
-	for x in xrange(0, int(posts)):
-		cancer.metastasis() #post
-		cell_count+=1  
-		print "\n\n\tCell Count: %d cells" % cell_count
-		print 4 * "---"
-	
-	cancer.close_driver()
+        for x in xrange(0, int(posts)):
+                cancer.metastasis() #post
+                cell_count+=1  
+                print "\n\n\tCell Count: %d cells" % cell_count
+                print 4 * "---"
+        
+        cancer.close_driver()
 
-	print "\n[!] Final cell count: %d\n\a" % cell_count
+        print "\n[!] Final cell count: %d\n\a" % cell_count
 
 def get_logins(record):
-	'''
-		Name: get_logins(...)
-	
-		Description: 
-			Login credentials are pulled from the credentials record file (a CSV file) wherein each line is 
-			in the format:
-						username,password
-		
-		Parameters:
-			- record 	- Record file name. ex: "record.txt"
-		
-			Returns usernames and passwords in groups in the list form of [[username,password], [username,password], ...].
-				Therefore, accessing the username and password yielded is as such:
-						get_logins("records.txt")[random_number][0] #for random username
-						get_logins("records.txt")[random_number][1] #for random password
-	'''
-	
-	logins = []
-	with open(record) as f:
-		for line in f.readlines():
-			logins.append( (line.rstrip('\n').split(',')) )
-	return logins
+        '''
+                Name: get_logins(...)
+        
+                Description: 
+                        Login credentials are pulled from the credentials record file (a CSV file) wherein each line is 
+                        in the format:
+                                                username,password
+                
+                Parameters:
+                        - record        - Record file name. ex: "record.txt"
+                
+                        Returns usernames and passwords in groups in the list form of [[username,password], [username,password], ...].
+                                Therefore, accessing the username and password yielded is as such:
+                                                get_logins("records.txt")[random_number][0] #for random username
+                                                get_logins("records.txt")[random_number][1] #for random password
+        '''
+        
+        logins = []
+        with open(record) as f:
+                for line in f.readlines():
+                        logins.append( (line.rstrip('\n').split(',')) )
+        return logins
 
 def get_sub_msg(info_file):
-	'''
-		Name: get_sub_msg(...)
-	
-		Description: 
-			Subject lines and their corresponding messages are pulled 
-			from the topics file (a CSV file) wherein each line is in the format:
-						subject,message
-		
-		Parameters:
-			- info_file 	- Topics file name. ex: "record.txt"
-		
-			Returns a random subject line and corresponding message in the form of a list.
-				Therefore, to access the yielded subject and message:
-						get_sub_msg("topics.txt")[0] #for the subject line
-						get_sub_msg("topics.txt")[1] #for the message
-	'''
-	sub_msg = []
+        '''
+                Name: get_sub_msg(...)
+        
+                Description: 
+                        Subject lines and their corresponding messages are pulled 
+                        from the topics file (a CSV file) wherein each line is in the format:
+                                                subject,message
+                
+                Parameters:
+                        - info_file     - Topics file name. ex: "record.txt"
+                
+                        Returns a random subject line and corresponding message in the form of a list.
+                                Therefore, to access the yielded subject and message:
+                                                get_sub_msg("topics.txt")[0] #for the subject line
+                                                get_sub_msg("topics.txt")[1] #for the message
+        '''
+        sub_msg = []
   
-	with open(info_file) as f:
-		for line in f.readlines():
-			sub_msg.append(line.rstrip('\n').split('\n'))
+        with open(info_file) as f:
+                for line in f.readlines():
+                        sub_msg.append(line.rstrip('\n').split('\n'))
     
-	num = random.randint(0, len(sub_msg)-1 ) #random number for random messages
+        num = random.randint(0, len(sub_msg)-1 ) #random number for random messages
 
-	return sub_msg[num][0].split(',')
+        return sub_msg[num][0].split(',')
 
 def hitch(seconds):
-	'''
-		Name: hitch(...)
-	
-		Description: 
-			Pause for a moment (in seconds). Sometimes, this is useful because
-			simulation of a user's actions may require varied
-			pauses. 
-		
-		Parameters:
-			- seconds 	- number of seconds to pause (float or int)
-		
-			No return value.
-	'''
-	time.sleep(seconds)
+        '''
+                Name: hitch(...)
+        
+                Description: 
+                        Pause for a moment (in seconds). Sometimes, this is useful because
+                        simulation of a user's actions may require varied
+                        pauses. 
+                
+                Parameters:
+                        - seconds       - number of seconds to pause (float or int)
+                
+                        No return value.
+        '''
+        time.sleep(seconds)
 
 def intro():
-	'''
-		Name: intro(...)
-	
-		Description: 
-			Prints an introductory message (somewhat of a splash).
-		
-		Parameters:
-			None.
-		
-			No return value.
-	'''
-	print "\n\nMarket Cancer v1.0.0\n\n\tGreg Thompson Jr. (c) 2013\n\nTime to infect a board.\n\n" + 8 * "-----"
+        '''
+                Name: intro(...)
+        
+                Description: 
+                        Prints an introductory message (somewhat of a splash).
+                
+                Parameters:
+                        None.
+                
+                        No return value.
+        '''
+        print "\n\nMarket Cancer v1.0.0\n\n\tGreg Thompson Jr. (c) 2013\n\nTime to infect a board.\n\n" + 8 * "-----"
     
 if __name__=="__main__":
     # Test cell.  This is for testing purposes only.
@@ -448,11 +447,11 @@ if __name__=="__main__":
     #   5 - proxy? 0 for no; 1 (or any n > 0) for yes
     #   6 - number of posts
     #
-	
-	intro()
-	
-	if (len(sys.argv) == 7):
-		single_login_post(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
+        
+        intro()
+        
+        if (len(sys.argv) == 7):
+                single_login_post(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
 
     #multiple logins
     #  sys.args:
@@ -461,11 +460,11 @@ if __name__=="__main__":
     #   3 - topics file
     #   4 - proxy? 0 for no; 1 (or any n > 0) for yes
     #   5 - posts
-	elif (len(sys.argv) == 6):
-		multi_login_post(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        elif (len(sys.argv) == 6):
+                multi_login_post(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 
     #error
-	else:
-		print "---\n\nUsage: %s username password symbol \"topics_file_name.txt\" proxy? spreads?\n\n" % os.path.basename(sys.argv[0])
-		sys.exit('Usage: %s "record_file_name.txt" symbol "topics_file_name.txt" proxy? spreads?\n\n---\n' 
-					% os.path.basename(sys.argv[0]))
+        else:
+                print "---\n\nUsage: %s username password symbol \"topics_file_name.txt\" proxy? spreads?\n\n" % os.path.basename(sys.argv[0])
+                sys.exit('Usage: %s "record_file_name.txt" symbol "topics_file_name.txt" proxy? spreads?\n\n---\n' 
+                                        % os.path.basename(sys.argv[0]))
